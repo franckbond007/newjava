@@ -5,7 +5,7 @@ pipeline
     agent any
     stages
     {
-        stage('ContinuousDownload_Master')
+        stage('ContinuousDownload_Loans')
         {
             steps
             {
@@ -15,45 +15,13 @@ pipeline
                 }
             }
         }
-        stage('ContinuousBuild_Master')
+        stage('ContinuousBuild_Loans')
         {
             steps
             {
                 script
                 {
                     cicd.newMaven()
-                }
-            }
-        }
-         stage('ContinuousDeployment_Master')
-        {
-            steps
-            {
-                script
-                {
-                    cicd.newDeployment("http://172.31.20.47:8080", "testapp")
-                }
-            }
-        }
-         stage('ContinuousTesting_Master')
-        {
-            steps
-            {
-                script
-                {
-                    cicd.newGit('https://github.com/franckbond007/FunctionalTesting.git')
-                    cicd.newSelenium('/var/lib/jenkins/workspace/pipelinewithlibraries/')
-                }
-            }
-        }
-        stage('ContinuousDeploy_Master')
-        {
-            steps
-            {
-                script
-                {
-                    cicd.newDeploy("http://172.31.15.28:8080", "prodapp")
-                    
                 }
             }
         }
